@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 import { useAuthStore } from "../../hooks";
 import { useForm } from "../../hooks/useForm";
 
@@ -17,7 +18,7 @@ const registerFormFields = {
 export const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
 
-  const { startLogin, errorMessage } = useAuthStore();
+  const { startLogin, startNewRegister, errorMessage } = useAuthStore();
 
   const {
     loginEmail,
@@ -39,18 +40,30 @@ export const LoginPage = () => {
 
   const handleSubmitLogin = (e) => {
     e.preventDefault();
-    if ([loginEmail, loginPassword].some((field) => field === "")) {
-      
-    }
-
 
     startLogin({ email: loginEmail, password: loginPassword });
   };
 
   const handleSubmitRegister = (e) => {
     e.preventDefault();
-    console.log(formStateRegister);
+
+    if (registerPassword !== registerPassword2) {
+      Swal.fire("Incorrect register", "password do not match", "error");
+      return;
+    }
+
+    startNewRegister({
+      name: registerName,
+      email: registerEmail,
+      password: registerPassword,
+    });
   };
+
+  useEffect(() => {
+    if (errorMessage !== undefined) {
+      Swal.fire("Field authentication", errorMessage, "error");
+    }
+  }, [errorMessage]);
 
   return (
     <>
@@ -145,12 +158,11 @@ export const LoginPage = () => {
                 </svg>
               )}
             </div>
+
             <button className="mt-4 self-center h-8 gap-2 px-4 text-xs font-medium tracking-wide text-white transition duration-300 rounded whitespace-nowrap bg-emerald-500 hover:bg-emerald-600 focus:bg-emerald-700 focus-visible:outline-none disabled:cursor-not-allowed disabled:border-emerald-300 disabled:bg-emerald-300 disabled:shadow-none">
               <span>Login</span>
             </button>
           </form>
-
-         
         </div>
 
         <div className="mb-10 w-full md:w-2/4 bg-emerald-500 shadow-md shadow-emerald-600 px-5 py-10">
@@ -320,6 +332,7 @@ export const LoginPage = () => {
                 </svg>
               )}
             </div>
+
             <button className="mt-4 self-center h-8 gap-2 px-4 text-xs font-medium tracking-wide text-black transition duration-300 rounded whitespace-nowrap bg-white hover:bg-emerald-600 hover:text-white focus:bg-emerald-700 focus-visible:outline-none disabled:cursor-not-allowed disabled:border-emerald-300 disabled:bg-emerald-300 disabled:shadow-none">
               <span>Create account</span>
             </button>
