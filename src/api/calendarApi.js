@@ -1,5 +1,4 @@
 import axios from "axios";
-import { config } from "localforage";
 import { getEnvVAriables } from "../helpers/getEnvVAriables";
 
 const { VITE_API_URL } = getEnvVAriables();

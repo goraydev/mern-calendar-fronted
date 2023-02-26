@@ -30,6 +30,8 @@ export const useAuthStore = () => {
         }
     }
 
+
+
     const startNewRegister = async ({ email, password, name }) => {
         try {
 
@@ -62,9 +64,12 @@ export const useAuthStore = () => {
             localStorage.removeItem("token");
             dispatch(onLogout());
         }
-
-
     }
+
+    const startLogout = () =>{
+        localStorage.removeItem("token");
+        dispatch(onLogout());  
+    } 
 
 
     return {
@@ -76,6 +81,7 @@ export const useAuthStore = () => {
         //Methods
         startLogin,
         startNewRegister,
-        checkAuthToken
+        checkAuthToken,
+        startLogout
     }
 }
