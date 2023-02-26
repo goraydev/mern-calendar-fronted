@@ -15,7 +15,7 @@ const tempEvent = {
 }
 
 const initialState = {
-    events: [tempEvent],
+    events: [],
     activeEvent: null,
 
 }
@@ -24,6 +24,10 @@ export const calendarSlice = createSlice({
     name: "calendar",
     initialState,
     reducers: {
+
+        onGetEvents: (state, { payload }) => {
+            state.events = payload;
+        },
         onSetActiveEvent: (state, { payload }) => {
             state.activeEvent = payload;
         },
@@ -49,6 +53,7 @@ export const calendarSlice = createSlice({
 });
 
 export const {
+    onGetEvents,
     onSetActiveEvent,
     onSetEvents,
     onUpdateEvent,
