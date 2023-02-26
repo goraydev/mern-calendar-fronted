@@ -52,7 +52,7 @@ export const useAuthStore = () => {
         if (!token) return dispatch(onLogout());
 
         try {
-            const { data } = await calendarApi.post("/auth/renew");
+            const { data } = await calendarApi.get("/auth/renew");
             localStorage.setItem("token", data.token);
             dispatch(onLogin({ name: data.name, uid: data.uid }));
 
