@@ -11,8 +11,7 @@ export const CalendarPage = () => {
 
   useEffect(() => {
     getEvents();
-  }, [])
-  
+  }, [events]);
 
   const [viewCalendar, setViewCalendar] = useState(
     localStorage.getItem("viewCalendar") || "month"

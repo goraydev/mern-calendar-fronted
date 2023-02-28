@@ -31,13 +31,24 @@ export const useCalendarStore = () => {
         dispatch(onSetActiveEvent(calendarEvent));
     }
 
-    const setEvents = (calendarEvent) => {
+    const setEvents = async (calendarEvent) => {
 
-        if (calendarEvent._id) {
-            dispatch(onUpdateEvent({ ...calendarEvent }));
-        } else {
+        try {
 
-            dispatch(onSetEvents({ ...calendarEvent, _id: new Date().getTime() }));
+            if (calendarEvent._id) {
+                //actualizar event y guardarlo en la BD
+                dispatch(onUpdateEvent({ ...calendarEvent }));
+            } else {
+
+                //Guardar en la BD
+                const { data } = await calendarApi.post("/events", calendarEvent);
+                
+                dispatch(onSetEvents({...data}));
+                
+
+            }
+        } catch (error) {
+            console.error(error);
         }
 
 

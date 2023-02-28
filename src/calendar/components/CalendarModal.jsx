@@ -25,7 +25,7 @@ Modal.setAppElement("#root");
 export const CalendarModal = () => {
   const [haveId, setHaveId] = useState(false);
   const { modal, openOrCloseModal } = useUiStore();
-  const { activeEvent, setEvents } = useCalendarStore();
+  const { activeEvent, setEvents, getEvents } = useCalendarStore();
 
   const [formSubmitted, setFormSubmitted] = useState(false);
 
@@ -74,6 +74,7 @@ export const CalendarModal = () => {
     setEvents(formValues);
     openOrCloseModal();
     setFormSubmitted(false);
+    
   };
 
   return (
@@ -240,7 +241,7 @@ export const CalendarModal = () => {
           >
             <span>Save</span>
           </button>
-        {haveId && <FabDeletEvent />}
+          {haveId && <FabDeletEvent />}
         </form>
       </Modal>
     </>
