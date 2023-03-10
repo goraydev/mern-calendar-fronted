@@ -33,8 +33,8 @@ export const CalendarModal = () => {
     useFormModal({
       title: "",
       notes: "",
-      start: new Date(),
-      end: addHours(new Date(), 2),
+      start: 0,
+      end: 1,
     });
 
   const titleClass = useMemo(() => {
@@ -49,14 +49,14 @@ export const CalendarModal = () => {
   }, [activeEvent]);
 
   useEffect(() => {
-    if (formValues._id) {
+    if (formValues.id) {
       setHaveId(true);
     } else {
       setHaveId(false);
     }
   }, [formValues]);
 
-  const onSubmit = (event) => {
+  const onSubmit = async (event) => {
     event.preventDefault();
     setFormSubmitted(true);
     const difference = differenceInSeconds(formValues.end, formValues.start);
@@ -71,10 +71,10 @@ export const CalendarModal = () => {
 
     /* Mandar a llamar una función que guarde mi evento
     en mi variable events de mi initialState de mi calendarSlice */
-    setEvents(formValues);
+
+    await setEvents(formValues);
     openOrCloseModal();
     setFormSubmitted(false);
-    
   };
 
   return (

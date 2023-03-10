@@ -1,5 +1,7 @@
+import { parseISO } from 'date-fns';
 import { useSelector, useDispatch } from 'react-redux'
 import calendarApi from '../api/calendarApi';
+import { convertEventsToDateEvent } from '../helpers';
 import {
     onDeleteEvent,
     onGetEvents,
@@ -11,14 +13,18 @@ import {
 export const useCalendarStore = () => {
 
     const { events, activeEvent } = useSelector(state => state.calendar);
+    const { user } = useSelector(state => state.auth)
 
     const dispatch = useDispatch();
 
     const getEvents = async () => {
         try {
 
+
             const { data } = await calendarApi.get("/events");
-            dispatch(onGetEvents(data.events));
+            const events = convertEventsToDateEvent(data.events);
+            dispatch(onGetEvents(events));
+
 
         } catch (error) {
             console.error(error);
@@ -35,18 +41,20 @@ export const useCalendarStore = () => {
 
         try {
 
-            if (calendarEvent._id) {
-                //actualizar event y guardarlo en la BD
-                dispatch(onUpdateEvent({ ...calendarEvent }));
-            } else {
+            if (calendarEvent.id) {
 
-                //Guardar en la BD
-                const { data } = await calendarApi.post("/events", calendarEvent);
-                
-                dispatch(onSetEvents({...data}));
-                
-
+                await calendarApi.put(`/events/${calendarEvent.id}`, calendarEvent);
+                dispatch(onUpdateEvent({ ...calendarEvent, user }));
+                return;
             }
+
+            //Guardar en la BD
+            const { data } = await calendarApi.post("/events", calendarEvent);
+            data.msg.start = parseISO(data.msg.start);
+            data.msg.end = parseISO(data.msg.end);
+            dispatch(onSetEvents({ ...data.msg, id: data.msg.id, user: user }));
+
+
         } catch (error) {
             console.error(error);
         }
@@ -54,8 +62,9 @@ export const useCalendarStore = () => {
 
     }
 
-    const deleteEvent = () => {
+    const deleteEvent = async () => {
 
+        await calendarApi.delete(`/events/${activeEvent.id}`);
         dispatch(onDeleteEvent());
     }
 

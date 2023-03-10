@@ -41,6 +41,8 @@ export const CalendarPage = () => {
     localStorage.setItem("viewCalendar", event);
   };
 
+  
+
   return (
     <>
       <NavBar />
