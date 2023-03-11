@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import calendarApi from '../api/calendarApi';
 import { convertEventsToDateEvent } from '../helpers';
 import {
+    onClearAllCalendar,
     onDeleteEvent,
     onGetEvents,
     onSetActiveEvent,
@@ -64,16 +65,27 @@ export const useCalendarStore = () => {
 
     const deleteEvent = async () => {
 
-        await calendarApi.delete(`/events/${activeEvent.id}`);
-        dispatch(onDeleteEvent());
+        try {
+
+            await calendarApi.delete(`/events/${activeEvent.id}`);
+            dispatch(onDeleteEvent());
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    const clearCalendar = () => {
+        dispatch(onClearAllCalendar());
     }
 
     return {
         events,
         activeEvent,
+
         setActiveEvent,
         setEvents,
         deleteEvent,
-        getEvents
+        getEvents,
+        clearCalendar
     }
 }

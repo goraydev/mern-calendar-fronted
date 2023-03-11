@@ -6,10 +6,13 @@ import {
     onLogin,
     onLogout
 } from "../store/auth/authSlice";
+import { useCalendarStore } from "./useCalendarStore";
 
 export const useAuthStore = () => {
 
     const { status, user, errorMessage } = useSelector(state => state.auth);
+    const { clearCalendar } = useCalendarStore();
+
     const dispatch = useDispatch();
 
     const startLogin = async ({ email, password }) => {
@@ -63,13 +66,17 @@ export const useAuthStore = () => {
             console.error(error);
             localStorage.removeItem("token");
             dispatch(onLogout());
+
         }
     }
 
-    const startLogout = () =>{
+    const startLogout = () => {
         localStorage.removeItem("token");
-        dispatch(onLogout());  
-    } 
+
+       clearCalendar();
+        dispatch(onLogout());
+
+    }
 
 
     return {

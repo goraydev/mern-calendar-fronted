@@ -55,6 +55,12 @@ export const calendarSlice = createSlice({
         onDeleteEvent: (state) => {
             state.events = state.events.filter(event => event.id !== state.activeEvent.id);
             state.activeEvent = null;
+        },
+
+        onClearAllCalendar: (state, { payload }) => {
+            state.events = [];
+            state.activeEvent = null;
+            state.isLoadingEvents = true;
         }
     }
 });
@@ -64,5 +70,6 @@ export const {
     onSetActiveEvent,
     onSetEvents,
     onUpdateEvent,
-    onDeleteEvent
+    onDeleteEvent,
+    onClearAllCalendar
 } = calendarSlice.actions
