@@ -8,6 +8,7 @@ import { useFormModal } from "../hooks/useFormModal";
 import { useUiStore } from "../../hooks/useUiStore";
 import { useCalendarStore } from "../../hooks";
 import { FabDeletEvent } from "./FabDeletEvent";
+import { getEnvVAriables } from "../../helpers";
 
 const customStyles = {
   content: {
@@ -20,7 +21,7 @@ const customStyles = {
 };
 
 // Make sure to bind modal to your appElement (https://reactcommunity.org/react-modal/accessibility/)
-Modal.setAppElement("#root");
+getEnvVAriables().VITE_MODE !== "test" ? Modal.setAppElement("#root") : null;
 
 export const CalendarModal = () => {
   const [haveId, setHaveId] = useState(false);

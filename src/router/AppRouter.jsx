@@ -12,7 +12,7 @@ export const AppRouter = () => {
   }, []);
 
   if (status === "checking") {
-    return <h3>Cargando...</h3>;
+    return <h3>Loading...</h3>;
   }
 
   //const authStatus = "not-authenticated";
