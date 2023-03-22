@@ -74,6 +74,8 @@ export const LoginPage = () => {
         <div className="w-full md:w-2/4 px-5 py-10">
           <h2 className="text-2xl text-center font-semibold">Login In</h2>
           <form
+            aria-label="form-calendar"
+            id="form-login"
             action=""
             className="flex flex-col"
             onSubmit={handleSubmitLogin}
@@ -168,6 +170,8 @@ export const LoginPage = () => {
         <div className="mb-10 w-full md:w-2/4 bg-emerald-500 shadow-md shadow-emerald-600 px-5 py-10">
           <h2 className="text-2xl text-center font-semibold">Sign In</h2>
           <form
+            aria-label="form-calendar"
+            id="form-signin"
             action=""
             className="flex flex-col"
             onSubmit={handleSubmitRegister}
