@@ -73,7 +73,7 @@ export const useAuthStore = () => {
     const startLogout = () => {
         localStorage.removeItem("token");
 
-       clearCalendar();
+        clearCalendar();
         dispatch(onLogout());
 
     }
