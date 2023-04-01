@@ -10,6 +10,11 @@ Web project with MERN is about events that look like Google Calendar, you can re
 
 https://mern-calendar-front.netlify.app/
 
+## Screenshots
+
+[![calendar1.jpg](https://i.postimg.cc/g2zDpjB9/calendar1.jpg)](https://postimg.cc/vcK9LYsX)
+[![calendar2.jpg](https://i.postimg.cc/FsgZw3pg/calendar2.jpg)](https://postimg.cc/2VyhZqPV)
+
 ## Deployment
 
 To deploy this project run
