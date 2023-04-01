@@ -9,6 +9,9 @@ Web project with MERN is about events that look like Google Calendar, you can re
 ## Demo
 
 https://mern-calendar-front.netlify.app/
+### Credentials
+ #### User: saoaguedo@gmail.com
+ #### Password: saoaguedo123
 
 ## Screenshots
 
